@@ -2,20 +2,21 @@ package com.kakao.musicqservicetest.Member.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kakao.musicqservicetest.Member.dto.MemberInfoCUDto;
-import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
 
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.stream.Collectors;
 
-public class MemberSeriviceImpl implements MemberService{
+@Service
+public class MemberServiceImpl implements MemberService{
     @Override
-    public ResponseEntity<Object> signup(MemberInfoCUDto memberInfoCUDto) throws IOException {
+    public String signup(MemberInfoCUDto memberInfoCUDto) throws IOException {
         ObjectMapper objectMapper = new ObjectMapper();
         String requestDto = objectMapper.writeValueAsString(memberInfoCUDto);
 
-        URL url = new URL("http://locahost:81/api/v1/members/signup");
+        URL url = new URL("http://localhost:81/api/v1/members/signup");
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 
         connection.setRequestMethod("POST");
@@ -29,14 +30,19 @@ public class MemberSeriviceImpl implements MemberService{
         outputStream.close();
 
         int statusCode = connection.getResponseCode();
+
+        String responseData = null;
+
         if(statusCode == HttpURLConnection.HTTP_OK){
             InputStream inputStream = connection.getInputStream();
-            String responseData = new BufferedReader(new InputStreamReader(inputStream)).lines().collect(Collectors.joining());
+            responseData = new BufferedReader(new InputStreamReader(inputStream)).lines().collect(Collectors.joining());
             inputStream.close();
-            
+            System.out.println(responseData);
         } else {
-            return null;
+            System.out.println("Error: " + statusCode);
         }
+        connection.disconnect();
+        return responseData;
     }
 
 }

@@ -1,4 +1,4 @@
-package com.kakao.musicqdomaintest.member.Dto;
+package com.kakao.musicqservicetest.Member.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -10,6 +10,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder
 public class MemberImageDto {
-    @Builder.Default
-    private String profile_img = "a.img";
+
+    private String profile_img;
 }
