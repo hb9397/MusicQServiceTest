@@ -13,7 +13,7 @@ import javax.validation.constraints.NotNull;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class MemberInfoCUDto {
+public class MemberSignUpDto {
     @NotNull
     private String id;
 
