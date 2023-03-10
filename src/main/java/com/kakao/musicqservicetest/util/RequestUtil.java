@@ -42,7 +42,7 @@ public class RequestUtil {
 		if(statusCode == HttpURLConnection.HTTP_OK){
 			InputStream inputStream = connection.getInputStream();
 			responseData = new BufferedReader(new InputStreamReader(inputStream)).lines().collect(Collectors.joining());
-			inputStream.close();
+				inputStream.close();
 			System.out.println(responseData);
 		} else {
 			System.out.println("Error: " + statusCode);
